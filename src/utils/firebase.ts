@@ -1,5 +1,15 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getDatabase,
+  ref,
+  push,
+  child,
+  set,
+  get,
+  update,
+  remove,
+} from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -8,10 +18,13 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+const db = getDatabase();
 
 /**
  * Get user if authenticated
@@ -60,4 +73,47 @@ export const signIn = (email: string, password: string) => {
  */
 export const logout = () => {
   auth.signOut();
+};
+
+export const insertBot = async (): Promise<any> => {
+  // entry
+  const botData = {
+    name: 'Bot4',
+    description: 'Dolor sit amet',
+    timestamp: Date.now(),
+  };
+
+  const botKey: any = push(child(ref(db), 'bots')).key;
+
+  set(ref(db, '/bots/' + botKey), botData);
+
+  return {
+    [botKey]: { ...botData },
+  };
+};
+
+export const getBots = async (): Promise<any> => {
+  const snapshot = await get(ref(db, '/bots'));
+
+  return snapshot.val();
+};
+
+export const updateBotData = async (botKey): Promise<any> => {
+  console.log('botID', botKey);
+  // entry
+  const botData = {
+    name: 'Bot4-updated',
+    description: 'Lorem ipsum Dolor sit amet',
+  };
+
+  const updates = {};
+  updates[`/bots/${botKey}`] = botData;
+
+  update(ref(db, `/bots/${botKey}`), botData);
+};
+
+export const deleteBotData = async (botKey): Promise<any> => {
+  console.log('delete', botKey);
+
+  remove(ref(db, `/bots/${botKey}`));
 };
