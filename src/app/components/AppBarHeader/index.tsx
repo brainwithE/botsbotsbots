@@ -19,8 +19,10 @@ import { useAuth } from '../../providers/AuthProvider';
 interface Props {}
 
 export const AppBarHeader = memo((props: Props) => {
-  const { logoutUser, isUserAuthenticated } = useAuth();
+  const { logoutUser, isUserAuthenticated, userProfile } = useAuth();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const logout = () => logoutUser();
 
   const handleClose = () => {
@@ -70,7 +72,7 @@ export const AppBarHeader = memo((props: Props) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem>Welcome email</MenuItem>
+              <MenuItem>Welcome {userProfile.email}</MenuItem>
               <MenuItem onClick={() => logout()}>Logout</MenuItem>
             </Menu>
           </div>

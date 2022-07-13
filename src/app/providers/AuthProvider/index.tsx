@@ -5,6 +5,7 @@
  */
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+import { profileBuilder } from 'utils/builders';
 import { signIn, logout, getUser } from '../../../utils/firebase';
 
 interface Props {
@@ -21,12 +22,16 @@ export function AuthProvider(props: Props) {
   const history = useHistory();
   const [isUserAuthenticated, setIsUserAuthenticated] = React.useState(false);
   const [isAuthenticating, setIsAuthenticating] = React.useState(false);
+  const [userProfile, setUserProfile] = React.useState<any>();
 
   const login = async data => {
     const user = await signIn(data.email, data.password);
 
     if (user) {
       setIsUserAuthenticated(true);
+
+      const profile = profileBuilder(user);
+      setUserProfile(profile);
     }
 
     if (!user) {
@@ -41,6 +46,9 @@ export function AuthProvider(props: Props) {
 
     if (user) {
       setIsUserAuthenticated(true);
+
+      const profile = profileBuilder(user);
+      setUserProfile(profile);
     }
 
     if (!user) {
@@ -53,6 +61,7 @@ export function AuthProvider(props: Props) {
   const logoutUser = async () => {
     await logout();
     setIsUserAuthenticated(false);
+    setUserProfile(null);
   };
 
   React.useEffect(() => {
@@ -79,6 +88,7 @@ export function AuthProvider(props: Props) {
       value={{
         isUserAuthenticated,
         isAuthenticating,
+        userProfile,
         login,
         checkAuth,
         logoutUser,
