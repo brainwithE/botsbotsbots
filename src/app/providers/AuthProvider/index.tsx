@@ -52,7 +52,6 @@ export function AuthProvider(props: Props) {
     }
 
     if (!user) {
-      history.push('/');
       setIsUserAuthenticated(false);
     }
     setIsAuthenticating(false);
@@ -70,12 +69,8 @@ export function AuthProvider(props: Props) {
   }, []);
 
   React.useEffect(() => {
-    if (!isUserAuthenticated) {
-      history.push('/');
-    }
-
     if (isUserAuthenticated) {
-      history.push('/dashboard');
+      history.push('/');
     }
   }, [history, isUserAuthenticated]);
 

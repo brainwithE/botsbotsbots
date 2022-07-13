@@ -31,8 +31,8 @@ export function App() {
       </Helmet>
       <AuthProvider>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/login" component={Login} />
           <Route component={NotFoundPage} />
         </Switch>
       </AuthProvider>

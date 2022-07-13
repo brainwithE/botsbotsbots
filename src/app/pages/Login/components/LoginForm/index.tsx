@@ -3,8 +3,10 @@ import * as React from 'react';
 import { Grid, Divider, Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useLogin } from '../../provider';
+import { useHistory } from 'react-router-dom';
 
 export function LoginForm() {
+  const history = useHistory();
   const { loginUser, loading } = useLogin();
   const [values, setValues] = React.useState({
     email: '',
@@ -56,8 +58,18 @@ export function LoginForm() {
             variant="contained"
             size="large"
             disabled={loading}
+            sx={{ marginBottom: '1em' }}
           >
             LOGIN
+          </Button>
+
+          <Button
+            fullWidth
+            onClick={() => history.push('/')}
+            variant="outlined"
+            size="large"
+          >
+            CONTINUE AS ANONYMOUS
           </Button>
         </ValidatorForm>
       </Grid>
