@@ -11,17 +11,25 @@ import { DashboardProvider } from './provider';
 import { DashboardCta } from './components/DashboardCta';
 import { BotForm } from './components/BotForm';
 import { BotDetails } from './components/BotDetails';
+import { Helmet } from 'react-helmet-async';
 
 interface Props {}
 
 export function Dashboard(props: Props) {
   return (
-    <DashboardProvider>
-      <AppBarHeader />
-      <BotList />
-      <BotForm />
-      <BotDetails />
-      <DashboardCta />
-    </DashboardProvider>
+    <>
+      <Helmet>
+        <title>Dashboard</title>
+        <meta name="description" content="Generate random bot name" />
+      </Helmet>
+
+      <DashboardProvider>
+        <AppBarHeader />
+        <BotList />
+        <BotForm />
+        <BotDetails />
+        <DashboardCta />
+      </DashboardProvider>
+    </>
   );
 }
