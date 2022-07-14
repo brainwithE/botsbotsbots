@@ -50,7 +50,17 @@ export const DashboardCta = memo((props: Props) => {
   };
 
   return (
-    <Sheet variant="solid" color="neutral" sx={{ p: 4 }}>
+    <Sheet
+      variant="solid"
+      color="neutral"
+      sx={{
+        p: 4,
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+        background: '#f3f3f3',
+      }}
+    >
       {buttonAction()}
     </Sheet>
   );

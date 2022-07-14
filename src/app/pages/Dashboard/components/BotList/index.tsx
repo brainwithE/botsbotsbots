@@ -87,7 +87,7 @@ export const BotList = memo((props: Props) => {
 
   return (
     <>
-      <List>
+      <List sx={{ pb: '10em' }}>
         {Object.entries(botList).map(([key, bot]: any) => (
           <ListItem
             key={key}

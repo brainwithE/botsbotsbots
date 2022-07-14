@@ -58,7 +58,7 @@ export function DashboardProvider(props: Props) {
 
     await alert('Bot created successfully', 'success', 3000);
 
-    await setBotList({ ...botList, ...newBot });
+    await setBotList({ ...newBot, ...botList });
 
     setIsProcessing(false);
   };
