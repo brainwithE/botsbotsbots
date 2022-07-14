@@ -25,23 +25,23 @@ export function AuthProvider(props: Props) {
   const [userProfile, setUserProfile] = React.useState<any>();
 
   const login = async data => {
-    const user = await signIn(data.email, data.password);
+    const userCredential = await signIn(data.email, data.password);
 
-    if (user) {
+    if (userCredential) {
       setIsUserAuthenticated(true);
 
-      const profile = profileBuilder(user);
+      const profile = profileBuilder(userCredential.user);
       setUserProfile(profile);
     }
 
-    if (!user) {
+    if (!userCredential) {
       throw new Error('Invalid credentials');
     }
   };
 
   const checkAuth = async () => {
     setIsAuthenticating(true);
-    console.log('checking auth');
+
     const user = await getUser();
 
     if (user) {
