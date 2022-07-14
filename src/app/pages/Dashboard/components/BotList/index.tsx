@@ -27,11 +27,12 @@ export const BotList = memo((props: Props) => {
   const {
     botList,
     selectedBot,
-    updateBot,
     deleteBot,
     setSelectedBot,
     setIsBotFormOpen,
+    setIsBotDetailsOpen,
   } = useDashboard();
+
   const { isUserAuthenticated } = useAuth();
 
   const handleMenu = (event, bot) => {
@@ -42,6 +43,11 @@ export const BotList = memo((props: Props) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
     setSelectedBot(null);
+  };
+
+  const handleView = async () => {
+    setIsBotDetailsOpen(true);
+    setAnchorEl(null);
   };
 
   const handleUpdate = async () => {
@@ -93,6 +99,7 @@ export const BotList = memo((props: Props) => {
       <BotItemActionMenu
         selectedBot={selectedBot}
         anchorEl={anchorEl}
+        onViewBot={handleView}
         onCloseMenu={handleCloseMenu}
         onUpdateBot={handleUpdate}
         onDeleteBot={handleDelete}

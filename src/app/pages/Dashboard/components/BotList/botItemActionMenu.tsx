@@ -10,14 +10,21 @@ import { useAuth } from 'app/providers/AuthProvider';
 interface Props {
   anchorEl: HTMLElement | null;
   onCloseMenu: () => void;
+  onViewBot: () => void;
   onUpdateBot: () => void;
   onDeleteBot: () => void;
   selectedBot: any;
 }
 
 export const BotItemActionMenu = memo((props: Props) => {
-  const { anchorEl, onCloseMenu, onUpdateBot, onDeleteBot, selectedBot } =
-    props;
+  const {
+    anchorEl,
+    onCloseMenu,
+    onViewBot,
+    onUpdateBot,
+    onDeleteBot,
+    selectedBot,
+  } = props;
 
   const { userProfile } = useAuth();
 
@@ -39,6 +46,7 @@ export const BotItemActionMenu = memo((props: Props) => {
       open={Boolean(anchorEl)}
       onClose={onCloseMenu}
     >
+      <MenuItem onClick={onViewBot}>View Bot</MenuItem>
       <MenuItem
         onClick={onUpdateBot}
         disabled={userProfile.uid !== selectedBot.createdBy.uid}

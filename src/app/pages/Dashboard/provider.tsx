@@ -24,6 +24,7 @@ export function DashboardProvider(props: Props) {
   const [botList, setBotList] = React.useState({});
   const [selectedBot, setSelectedBot] = React.useState<any>();
   const [isBotFormOpen, setIsBotFormOpen] = React.useState(false);
+  const [isBotDetailsOpen, setIsBotDetailsOpen] = React.useState(false);
   const [isProcessing, setIsProcessing] = React.useState(false);
 
   const { userProfile } = useAuth();
@@ -85,6 +86,8 @@ export function DashboardProvider(props: Props) {
         setIsBotFormOpen,
         isProcessing,
         setIsProcessing,
+        isBotDetailsOpen,
+        setIsBotDetailsOpen,
       }}
     >
       {props.children}
