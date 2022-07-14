@@ -11,45 +11,40 @@ import {
   ListItemAvatar,
   Avatar,
   IconButton,
-  Menu,
-  MenuItem,
   Typography,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import { useDashboard } from '../../provider';
 import { useAuth } from 'app/providers/AuthProvider';
+import { BotItemActionMenu } from './botItemActionMenu';
 
 interface Props {}
 
 export const BotList = memo((props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [activeBot, setActiveBot] = React.useState<any>(null);
 
-  const { botList, updateBot, deleteBot } = useDashboard();
-  const { isUserAuthenticated, userProfile } = useAuth();
+  const { botList, selectedBot, updateBot, deleteBot, setSelectedBot } =
+    useDashboard();
+  const { isUserAuthenticated } = useAuth();
 
   const handleMenu = (event, bot) => {
-    setActiveBot(bot);
+    setSelectedBot(bot);
     setAnchorEl(event.currentTarget);
   };
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
-    setActiveBot(null);
+    setSelectedBot(null);
   };
 
-  const handleUpdate = async e => {
-    e.stopPropagation();
-
-    await updateBot(activeBot.key);
+  const handleUpdate = async () => {
+    await updateBot(selectedBot.key);
     setAnchorEl(null);
   };
 
-  const handleDelete = async e => {
-    e.stopPropagation();
-
-    await deleteBot(activeBot.key);
+  const handleDelete = async () => {
+    await deleteBot(selectedBot.key);
     setAnchorEl(null);
   };
 
@@ -57,63 +52,45 @@ export const BotList = memo((props: Props) => {
     return <Typography variant="body1">No bot found</Typography>;
 
   return (
-    <List>
-      {Object.entries(botList).map(([key, bot]: any) => (
-        <ListItem
-          key={key}
-          alignItems="flex-start"
-          secondaryAction={
-            isUserAuthenticated && (
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                onClick={e => handleMenu(e, { key, ...bot })}
-              >
-                <MoreVertIcon />
-              </IconButton>
-            )
-          }
-        >
-          <ListItemAvatar>
-            <Avatar
-              src={`https://avatars.dicebear.com/api/bottts/${key}.svg`}
-              alt="bot"
+    <>
+      <List>
+        {Object.entries(botList).map(([key, bot]: any) => (
+          <ListItem
+            key={key}
+            alignItems="flex-start"
+            secondaryAction={
+              isUserAuthenticated && (
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={e => handleMenu(e, { key, ...bot })}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              )
+            }
+          >
+            <ListItemAvatar>
+              <Avatar
+                src={`https://avatars.dicebear.com/api/bottts/${key}.svg`}
+                alt="bot"
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={bot.name}
+              secondary={`"${bot.catchphrase}"`}
             />
-          </ListItemAvatar>
-          <ListItemText primary={bot.name} secondary={`"${bot.catchphrase}"`} />
-        </ListItem>
-      ))}
+          </ListItem>
+        ))}
+      </List>
 
-      {activeBot && (
-        <Menu
-          id="menu-bot-action"
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-        >
-          <MenuItem
-            onClick={handleUpdate}
-            disabled={userProfile.uid !== activeBot.createdBy.uid}
-          >
-            Edit Bot
-          </MenuItem>
-          <MenuItem
-            onClick={handleDelete}
-            disabled={userProfile.uid !== activeBot.createdBy.uid}
-          >
-            Delete Bot
-          </MenuItem>
-        </Menu>
-      )}
-    </List>
+      <BotItemActionMenu
+        selectedBot={selectedBot}
+        anchorEl={anchorEl}
+        onCloseMenu={handleCloseMenu}
+        onUpdateBot={handleUpdate}
+        onDeleteBot={handleDelete}
+      />
+    </>
   );
 });

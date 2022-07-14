@@ -22,6 +22,7 @@ export function useDashboard() {
 
 export function DashboardProvider(props: Props) {
   const [botList, setBotList] = React.useState({});
+  const [selectedBot, setSelectedBot] = React.useState<any>();
 
   const { userProfile } = useAuth();
 
@@ -68,6 +69,8 @@ export function DashboardProvider(props: Props) {
     <DashboardContext.Provider
       value={{
         botList,
+        selectedBot,
+        setSelectedBot,
         getBots,
         createBot,
         updateBot,
