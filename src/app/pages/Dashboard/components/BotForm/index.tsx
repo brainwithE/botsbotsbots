@@ -44,6 +44,7 @@ export const BotForm = memo((props: Props) => {
 
   const [formValues, setFormValues] = useState({
     name: '',
+    purpose: '',
     catchphrase: '',
   });
 
@@ -105,6 +106,17 @@ export const BotForm = memo((props: Props) => {
             variant="outlined"
             validators={['required']}
             errorMessages={['this field is required']}
+          />
+          <TextValidator
+            margin="normal"
+            name="purpose"
+            value={formValues.purpose || ''}
+            onChange={handleChange}
+            id="purpose"
+            label="Purpose"
+            type="text"
+            fullWidth
+            variant="outlined"
           />
           <TextValidator
             margin="normal"

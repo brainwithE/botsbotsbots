@@ -112,9 +112,30 @@ export const BotList = memo((props: Props) => {
               />
             </ListItemAvatar>
 
+            {/* <ListItemText primary={bot.name} secondary={`- ${bot.purpose}`} /> */}
             <ListItemText
               primary={bot.name}
-              secondary={`"${bot.catchphrase}"`}
+              secondary={
+                <>
+                  <Typography
+                    variant="body2"
+                    color="gray"
+                    sx={{ fontStyle: 'italic' }}
+                  >
+                    "{bot.catchphrase}"
+                  </Typography>
+
+                  {bot.purpose && (
+                    <Typography
+                      component="span"
+                      variant="caption"
+                      color="text.primary"
+                    >
+                      Purpose: {bot.purpose}
+                    </Typography>
+                  )}
+                </>
+              }
             />
           </ListItem>
         ))}

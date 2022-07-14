@@ -49,6 +49,7 @@ export function DashboardProvider(props: Props): JSX.Element {
 
     const generatedBot = {
       name: generateBotName(faker.name.firstName()),
+      purpose: '',
       catchphrase: faker.company.catchPhrase(),
       timestamp: Date.now(),
       createdBy: { uid: userProfile.uid, email: userProfile.email },

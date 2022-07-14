@@ -45,7 +45,12 @@ export const BotDetails = memo((props: Props) => {
       TransitionComponent={Transition}
     >
       <Container sx={{ padding: '2em' }}>
-        <Grid container justifyContent="center">
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+        >
           <Avatar
             src={`https://avatars.dicebear.com/api/bottts/${selectedBot.key}.svg`}
             alt="bot"
@@ -56,12 +61,23 @@ export const BotDetails = memo((props: Props) => {
             {selectedBot.name}
           </Typography>
 
-          <Typography variant="subtitle2" color="secondary" align="center">
+          <Typography
+            variant="subtitle1"
+            component="p"
+            color="secondary"
+            align="center"
+            gutterBottom
+            sx={{ fontStyle: 'italic' }}
+          >
             "{selectedBot.catchphrase}"
           </Typography>
 
+          <Typography variant="body1" align="center" gutterBottom>
+            Purpose: {selectedBot.purpose}
+          </Typography>
+
           <Typography
-            variant="body2"
+            variant="caption"
             color="gray"
             align="center"
             sx={{ mt: '2em' }}
