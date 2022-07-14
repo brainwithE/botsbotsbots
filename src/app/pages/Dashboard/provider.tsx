@@ -2,10 +2,10 @@ import React from 'react';
 import { faker } from '@faker-js/faker';
 
 import {
-  getBots,
-  insertBot,
+  getAllBotsData,
+  insertBotData,
   updateBotData,
-  deleteBotData,
+  removeBotData,
 } from 'utils/firebase';
 import { generateBotName } from 'utils/randomizer';
 import { useAuth } from 'app/providers/AuthProvider';
@@ -38,7 +38,7 @@ export function DashboardProvider(props: Props) {
   const handleGetBots = async () => {
     setIsProcessing(true);
 
-    const botList = await getBots();
+    const botList = await getAllBotsData();
 
     setBotList(botList || {});
     setIsProcessing(false);
@@ -54,7 +54,7 @@ export function DashboardProvider(props: Props) {
       createdBy: { uid: userProfile.uid, email: userProfile.email },
     };
 
-    const newBot = await insertBot(generatedBot);
+    const newBot = await insertBotData(generatedBot);
 
     await alert('Bot created successfully', 'success', 3000);
 
@@ -83,7 +83,7 @@ export function DashboardProvider(props: Props) {
     try {
       setIsProcessing(true);
 
-      await deleteBotData(id);
+      await removeBotData(id);
       await delete botList[id];
 
       setBotList(botList);
@@ -101,7 +101,6 @@ export function DashboardProvider(props: Props) {
         botList,
         selectedBot,
         setSelectedBot,
-        getBots,
         createBot,
         updateBot,
         deleteBot,

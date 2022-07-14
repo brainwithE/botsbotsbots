@@ -76,7 +76,7 @@ export const logout = () => {
   auth.signOut();
 };
 
-export const insertBot = async (botData: object): Promise<any> => {
+export const insertBotData = async (botData: object): Promise<any> => {
   const botKey: any = push(child(ref(db), 'bots')).key;
 
   const botsRef = ref(db, `/bots/${botKey}`);
@@ -88,7 +88,7 @@ export const insertBot = async (botData: object): Promise<any> => {
   };
 };
 
-export const getBots = async (): Promise<any> => {
+export const getAllBotsData = async (): Promise<any> => {
   const snapshot = await get(ref(db, '/bots'));
 
   return snapshot.val();
@@ -107,7 +107,7 @@ export const updateBotData = async (botKey, botData): Promise<any> => {
   };
 };
 
-export const deleteBotData = async (botKey): Promise<any> => {
+export const removeBotData = async (botKey): Promise<any> => {
   const botsRef = ref(db, `/bots/${botKey}`);
 
   await remove(botsRef);
