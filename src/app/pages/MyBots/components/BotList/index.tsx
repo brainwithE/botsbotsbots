@@ -7,10 +7,10 @@ import React, { memo } from 'react';
 import { List, Typography, Grid } from '@mui/material';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
-import { useDashboard } from '../../provider';
+import { useMyBots } from '../../provider';
 import { useAuth } from 'app/providers/AuthProvider';
-import { BotItemActionMenu } from 'app/components/BotItemActionMenu';
 import { BotListItem } from 'app/components/BotListItem';
+import { BotItemActionMenu } from 'app/components/BotItemActionMenu';
 
 interface Props {}
 
@@ -24,7 +24,7 @@ export const BotList = memo((props: Props) => {
     setSelectedBot,
     setIsBotFormOpen,
     setIsBotDetailsOpen,
-  } = useDashboard();
+  } = useMyBots();
 
   const { isUserAuthenticated } = useAuth();
 
@@ -82,11 +82,11 @@ export const BotList = memo((props: Props) => {
       <List sx={{ pb: '10em' }}>
         {Object.entries(botList).map(([key, bot]: any) => (
           <BotListItem
-            showCreator
             key={key}
             botKey={key}
             bot={bot}
             onHandleMenu={handleMenu}
+            showCatchphrase
           />
         ))}
       </List>

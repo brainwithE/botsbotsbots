@@ -2,7 +2,7 @@ import React from 'react';
 import { faker } from '@faker-js/faker';
 
 import {
-  getAllBotsData,
+  getUserBotsData,
   insertBotData,
   updateBotData,
   removeBotData,
@@ -15,13 +15,13 @@ interface Props {
   children: React.ReactNode;
 }
 
-const DashboardContext = React.createContext<any>({});
+const MyBotsContext = React.createContext<any>({});
 
-export function useDashboard() {
-  return React.useContext(DashboardContext);
+export function useMyBots() {
+  return React.useContext(MyBotsContext);
 }
 
-export function DashboardProvider(props: Props): JSX.Element {
+export function MyBotsProvider(props: Props): JSX.Element {
   const [botList, setBotList] = React.useState({});
   const [selectedBot, setSelectedBot] = React.useState<any>();
   const [isBotFormOpen, setIsBotFormOpen] = React.useState(false);
@@ -32,14 +32,14 @@ export function DashboardProvider(props: Props): JSX.Element {
   const { alert } = useAlert();
 
   React.useEffect(() => {
-    handleGetAllBots();
+    handleGetSingleBot();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleGetAllBots = async () => {
+  const handleGetSingleBot = async () => {
     setIsProcessing(true);
 
-    const botList = await getAllBotsData();
+    const botList = await getUserBotsData(userProfile.uid);
 
     setBotList(botList || {});
     setIsProcessing(false);
@@ -98,7 +98,7 @@ export function DashboardProvider(props: Props): JSX.Element {
   };
 
   return (
-    <DashboardContext.Provider
+    <MyBotsContext.Provider
       value={{
         botList,
         selectedBot,
@@ -115,6 +115,6 @@ export function DashboardProvider(props: Props): JSX.Element {
       }}
     >
       {props.children}
-    </DashboardContext.Provider>
+    </MyBotsContext.Provider>
   );
 }

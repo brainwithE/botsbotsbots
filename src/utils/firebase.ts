@@ -114,6 +114,16 @@ export const getAllBotsData = async (): Promise<any> => {
 };
 
 /**
+ * Get user's bots
+ *
+ */
+export const getUserBotsData = async (uid: string): Promise<any> => {
+  const snapshot = await get(ref(db, `/user-bots/${uid}`));
+
+  return snapshot.val();
+};
+
+/**
  * Update bot details in bots node
  * @param botKey string
  * @param botData object

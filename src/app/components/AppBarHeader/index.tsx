@@ -31,6 +31,7 @@ export const AppBarHeader = memo((props: Props) => {
   const handleLogout = () => {
     logoutUser();
     setIsLogoutConfirmOpen(false);
+    history.push('/');
   };
 
   const handleClose = () => {

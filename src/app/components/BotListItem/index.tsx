@@ -19,11 +19,13 @@ interface Props {
   botKey: string;
   bot: any;
   onHandleMenu: (event, bot) => void;
+  showCreator?: boolean;
+  showCatchphrase?: boolean;
 }
 
 export const BotListItem = memo((props: Props) => {
   const { isUserAuthenticated } = useAuth();
-  const { botKey, bot, onHandleMenu } = props;
+  const { botKey, bot, showCreator, showCatchphrase, onHandleMenu } = props;
 
   return (
     <ListItem
@@ -52,6 +54,16 @@ export const BotListItem = memo((props: Props) => {
         primary={bot.name}
         secondary={
           <>
+            {showCreator && (
+              <Typography
+                component="span"
+                variant="caption"
+                color="text.primary"
+                sx={{ display: 'block' }}
+              >
+                by: {bot.createdBy.email}
+              </Typography>
+            )}
             {bot.purpose && (
               <Typography
                 component="span"
@@ -62,7 +74,7 @@ export const BotListItem = memo((props: Props) => {
                 Purpose: {bot.purpose}
               </Typography>
             )}
-            "{bot.catchphrase}"
+            {showCatchphrase && bot.catchphrase}
           </>
         }
       />
