@@ -39,7 +39,7 @@ export const DashboardCta = memo((props: Props) => {
     return (
       <LoadingButton
         loading={isProcessing}
-        variant="contained"
+        variant="outlined"
         size="large"
         fullWidth
         onClick={() => handleInsert()}

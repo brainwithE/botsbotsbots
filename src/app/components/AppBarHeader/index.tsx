@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../../providers/AuthProvider';
+import { LogoutConfirmationDialog } from './logoutConfirmationDialog';
 
 interface Props {}
 
@@ -22,8 +23,12 @@ export const AppBarHeader = memo((props: Props) => {
   const { logoutUser, isUserAuthenticated, userProfile } = useAuth();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = React.useState(false);
 
-  const logout = () => logoutUser();
+  const handleLogout = () => {
+    logoutUser();
+    setIsLogoutConfirmOpen(false);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -31,6 +36,11 @@ export const AppBarHeader = memo((props: Props) => {
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleOpenDialog = () => {
+    setAnchorEl(null);
+    setIsLogoutConfirmOpen(true);
   };
 
   return (
@@ -73,11 +83,16 @@ export const AppBarHeader = memo((props: Props) => {
               onClose={handleClose}
             >
               <MenuItem>Welcome {userProfile.email}</MenuItem>
-              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem onClick={handleOpenDialog}>Logout</MenuItem>
             </Menu>
           </div>
         )}
       </Toolbar>
+      <LogoutConfirmationDialog
+        open={isLogoutConfirmOpen}
+        setOpen={setIsLogoutConfirmOpen}
+        onLogout={handleLogout}
+      />
     </AppBar>
   );
 });
