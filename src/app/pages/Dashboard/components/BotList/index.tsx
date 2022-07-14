@@ -4,13 +4,12 @@
  *
  */
 import React, { memo } from 'react';
-import { List, Typography, Grid } from '@mui/material';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import { List } from '@mui/material';
 
 import { useDashboard } from '../../provider';
-import { useAuth } from 'app/providers/AuthProvider';
 import { BotItemActionMenu } from 'app/components/BotItemActionMenu';
 import { BotListItem } from 'app/components/BotListItem';
+import { NotFound } from 'app/components/BotNotFound';
 
 interface Props {}
 
@@ -25,8 +24,6 @@ export const BotList = memo((props: Props) => {
     setIsBotFormOpen,
     setIsBotDetailsOpen,
   } = useDashboard();
-
-  const { isUserAuthenticated } = useAuth();
 
   const handleMenu = (event, bot) => {
     setSelectedBot(bot);
@@ -54,32 +51,13 @@ export const BotList = memo((props: Props) => {
     setSelectedBot(null);
   };
 
-  if (Object.keys(botList).length === 0)
-    return (
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-        direction="column"
-        sx={{ minHeight: '30vh' }}
-      >
-        <SentimentVeryDissatisfiedIcon sx={{ fontSize: '5em' }} color="error" />
-
-        <Typography variant="h5" align="center">
-          Bot not found
-        </Typography>
-
-        {!isUserAuthenticated && (
-          <Typography variant="body1" align="center">
-            Login to generate random bot.
-          </Typography>
-        )}
-      </Grid>
-    );
+  if (Object.keys(botList).length === 0) {
+    return <NotFound label="No bot found" />;
+  }
 
   return (
     <>
-      <List sx={{ pb: '10em' }}>
+      <List>
         {Object.entries(botList).map(([key, bot]: any) => (
           <BotListItem
             showCreator
