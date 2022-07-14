@@ -14,7 +14,6 @@ import {
   get,
   update,
   remove,
-  onChildChanged,
 } from 'firebase/database';
 
 const firebaseConfig = {
@@ -90,12 +89,14 @@ export const logout = (): Promise<void> => {
  * @param botData
  * @returns
  */
-export const insertBotData = async (botData: object): Promise<any> => {
+export const insertBotData = async (botData: any): Promise<any> => {
   const botKey: any = push(child(ref(db), 'bots')).key;
 
-  const botsRef = ref(db, `/bots/${botKey}`);
+  const allBotsRef = ref(db, `/bots/${botKey}`);
+  const myBotsRef = ref(db, `/user-bots/${botData.createdBy.uid}/${botKey}`);
 
-  set(botsRef, botData);
+  await set(allBotsRef, botData);
+  await set(myBotsRef, botData);
 
   return {
     [botKey]: { ...botData },
@@ -119,12 +120,11 @@ export const getAllBotsData = async (): Promise<any> => {
  * @returns
  */
 export const updateBotData = async (botKey, botData): Promise<any> => {
-  const botsRef = ref(db, `/bots/${botKey}`);
-  await update(botsRef, botData);
+  const allBotsRef = ref(db, `/bots/${botKey}`);
+  const myBotsRef = ref(db, `/user-bots/${botData.createdBy.uid}/${botKey}`);
 
-  await onChildChanged(botsRef, data => {
-    console.log('onChildChanged', data.key, data.val());
-  });
+  await update(allBotsRef, botData);
+  await update(myBotsRef, botData);
 
   return {
     [botKey]: { ...botData },
@@ -135,8 +135,13 @@ export const updateBotData = async (botKey, botData): Promise<any> => {
  * Remove bot from bots node
  * @param botKey string
  */
-export const removeBotData = async (botKey: string): Promise<void> => {
-  const botsRef = ref(db, `/bots/${botKey}`);
+export const removeBotData = async (
+  botKey: string,
+  uid: string,
+): Promise<void> => {
+  const allBotsRef = ref(db, `/bots/${botKey}`);
+  const myBotsRef = ref(db, `/user-bots/${uid}/${botKey}`);
 
-  await remove(botsRef);
+  await remove(allBotsRef);
+  await remove(myBotsRef);
 };

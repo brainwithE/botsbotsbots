@@ -80,11 +80,11 @@ export function DashboardProvider(props: Props): JSX.Element {
     setIsProcessing(false);
   };
 
-  const deleteBot = async id => {
+  const deleteBot = async (id, uid) => {
     try {
       setIsProcessing(true);
 
-      await removeBotData(id);
+      await removeBotData(id, uid);
       await delete botList[id];
 
       setBotList(botList);

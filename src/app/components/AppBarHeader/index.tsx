@@ -12,15 +12,18 @@ import {
   Menu,
   MenuItem,
   Avatar,
+  ButtonBase,
 } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../../providers/AuthProvider';
 import { LogoutConfirmationDialog } from './logoutConfirmationDialog';
+import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
 export const AppBarHeader = memo((props: Props) => {
   const { logoutUser, isUserAuthenticated, userProfile } = useAuth();
+  const history = useHistory();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [isLogoutConfirmOpen, setIsLogoutConfirmOpen] = React.useState(false);
@@ -45,14 +48,16 @@ export const AppBarHeader = memo((props: Props) => {
 
   return (
     <AppBar position="static" color="default">
-      <Toolbar>
-        <Avatar
-          src={'https://avatars.dicebear.com/api/bottts/botsbotsbots.svg'}
-          alt="bot"
-        />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          BotsBotsBots
-        </Typography>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <ButtonBase onClick={() => history.push('/')}>
+          <Avatar
+            src={'https://avatars.dicebear.com/api/bottts/botsbotsbots.svg'}
+            alt="bot"
+          />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            BotsBotsBots
+          </Typography>
+        </ButtonBase>
 
         {isUserAuthenticated && (
           <div>
@@ -82,8 +87,13 @@ export const AppBarHeader = memo((props: Props) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem>Welcome {userProfile.email}</MenuItem>
-              <MenuItem onClick={handleOpenDialog}>Logout</MenuItem>
+              <MenuItem onClick={() => history.push('/')}>Dashboard</MenuItem>
+              <MenuItem onClick={() => history.push('/my-bots')}>
+                My Bots
+              </MenuItem>
+              <MenuItem onClick={handleOpenDialog}>
+                Logout {userProfile.email}
+              </MenuItem>
             </Menu>
           </div>
         )}

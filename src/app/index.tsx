@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthProvider } from './providers/AuthProvider';
 import { Container } from '@mui/material';
 import { AlertProvider } from './providers/AlertProvider';
+import { MyBots } from './pages/MyBots';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -38,6 +39,7 @@ export function App() {
             <Switch>
               <Route exact path="/" component={Dashboard} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/my-bots" component={MyBots} />
               <Route component={NotFoundPage} />
             </Switch>
           </Container>

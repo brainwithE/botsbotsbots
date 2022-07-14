@@ -4,17 +4,7 @@
  *
  */
 import React, { memo } from 'react';
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
-  Avatar,
-  IconButton,
-  Typography,
-  Grid,
-} from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { List, Typography, Grid } from '@mui/material';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 import { useDashboard } from '../../provider';
@@ -60,7 +50,7 @@ export const BotList = memo((props: Props) => {
 
   const handleDelete = async () => {
     setAnchorEl(null);
-    await deleteBot(selectedBot.key);
+    await deleteBot(selectedBot.key, selectedBot.createdBy.uid);
     setSelectedBot(null);
   };
 
