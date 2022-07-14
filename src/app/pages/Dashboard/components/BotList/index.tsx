@@ -20,6 +20,7 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 import { useDashboard } from '../../provider';
 import { useAuth } from 'app/providers/AuthProvider';
 import { BotItemActionMenu } from './botItemActionMenu';
+import { BotListItem } from 'app/components/BotListItem';
 
 interface Props {}
 
@@ -90,54 +91,12 @@ export const BotList = memo((props: Props) => {
     <>
       <List sx={{ pb: '10em' }}>
         {Object.entries(botList).map(([key, bot]: any) => (
-          <ListItem
+          <BotListItem
             key={key}
-            alignItems="flex-start"
-            secondaryAction={
-              isUserAuthenticated && (
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={event => handleMenu(event, { key, ...bot })}
-                >
-                  <MoreVertIcon />
-                </IconButton>
-              )
-            }
-          >
-            <ListItemAvatar>
-              <Avatar
-                src={`https://avatars.dicebear.com/api/bottts/${key}.svg`}
-                alt="bot"
-              />
-            </ListItemAvatar>
-
-            {/* <ListItemText primary={bot.name} secondary={`- ${bot.purpose}`} /> */}
-            <ListItemText
-              primary={bot.name}
-              secondary={
-                <>
-                  <Typography
-                    variant="body2"
-                    color="gray"
-                    sx={{ fontStyle: 'italic' }}
-                  >
-                    "{bot.catchphrase}"
-                  </Typography>
-
-                  {bot.purpose && (
-                    <Typography
-                      component="span"
-                      variant="caption"
-                      color="text.primary"
-                    >
-                      Purpose: {bot.purpose}
-                    </Typography>
-                  )}
-                </>
-              }
-            />
-          </ListItem>
+            botKey={key}
+            bot={bot}
+            onHandleMenu={handleMenu}
+          />
         ))}
       </List>
 

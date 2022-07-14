@@ -72,9 +72,11 @@ export const BotDetails = memo((props: Props) => {
             "{selectedBot.catchphrase}"
           </Typography>
 
-          <Typography variant="body1" align="center" gutterBottom>
-            Purpose: {selectedBot.purpose}
-          </Typography>
+          {selectedBot.purpose && (
+            <Typography variant="body1" align="center" gutterBottom>
+              Purpose: {selectedBot.purpose}
+            </Typography>
+          )}
 
           <Typography
             variant="caption"
