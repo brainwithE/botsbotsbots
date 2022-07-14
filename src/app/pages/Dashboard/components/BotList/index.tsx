@@ -24,7 +24,7 @@ interface Props {}
 
 export const BotList = memo((props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [activeBot, setActiveBot] = React.useState<any>();
+  const [activeBot, setActiveBot] = React.useState<any>(null);
 
   const { botList, updateBot, deleteBot } = useDashboard();
   const { isUserAuthenticated, userProfile } = useAuth();
@@ -36,6 +36,7 @@ export const BotList = memo((props: Props) => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+    setActiveBot(null);
   };
 
   const handleUpdate = async e => {
@@ -75,7 +76,7 @@ export const BotList = memo((props: Props) => {
         >
           <ListItemAvatar>
             <Avatar
-              src={`https://avatars.dicebear.com/api/bottts/${bot.name}.svg`}
+              src={`https://avatars.dicebear.com/api/bottts/${key}.svg`}
               alt="bot"
             />
           </ListItemAvatar>

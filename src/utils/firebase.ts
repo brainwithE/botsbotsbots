@@ -9,6 +9,8 @@ import {
   get,
   update,
   remove,
+  onChildAdded,
+  onChildChanged,
 } from 'firebase/database';
 import { faker } from '@faker-js/faker';
 import { generateBotName } from './randomizer';
@@ -80,7 +82,13 @@ export const logout = () => {
 export const insertBot = async (botData: object): Promise<any> => {
   const botKey: any = push(child(ref(db), 'bots')).key;
 
-  set(ref(db, '/bots/' + botKey), botData);
+  const botsRef = ref(db, `/bots/${botKey}`);
+
+  // onChildAdded(botsRef, data => {
+  //   console.log('onChildAdded', data.key, data.val());
+  // });
+
+  set(botsRef, botData);
 
   return {
     [botKey]: { ...botData },
@@ -94,17 +102,22 @@ export const getBots = async (): Promise<any> => {
 };
 
 export const updateBotData = async (botKey): Promise<any> => {
-  console.log('botID', botKey);
   // entry
   const botData = {
     name: generateBotName(faker.name.firstName()),
     catchphrase: faker.company.catchPhrase(),
   };
 
-  const updates = {};
-  updates[`/bots/${botKey}`] = botData;
+  const botsRef = ref(db, `/bots/${botKey}`);
+  await update(botsRef, botData);
 
-  update(ref(db, `/bots/${botKey}`), botData);
+  await onChildChanged(botsRef, data => {
+    console.log('onChildChanged', data.key, data.val());
+  });
+
+  return {
+    [botKey]: { ...botData },
+  };
 };
 
 export const deleteBotData = async (botKey): Promise<any> => {

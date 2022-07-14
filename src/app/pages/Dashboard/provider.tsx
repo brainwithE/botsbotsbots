@@ -49,8 +49,12 @@ export function DashboardProvider(props: Props) {
 
   const updateBot = async id => {
     const updatedBot = await updateBotData(id);
+    const key = Object.entries(updatedBot)[0][0];
+    const value = Object.entries(updatedBot)[0][1];
 
-    console.log('updatedBot', updatedBot);
+    const oldBot = botList[key];
+
+    Object.assign(oldBot, value);
   };
 
   const deleteBot = async id => {
