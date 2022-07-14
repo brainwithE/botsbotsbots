@@ -27,7 +27,7 @@ export const BotList = memo((props: Props) => {
   const [activeBot, setActiveBot] = React.useState<any>();
 
   const { botList, updateBot, deleteBot } = useDashboard();
-  const { isUserAuthenticated } = useAuth();
+  const { isUserAuthenticated, userProfile } = useAuth();
 
   const handleMenu = (event, bot) => {
     setActiveBot(bot);
@@ -66,7 +66,7 @@ export const BotList = memo((props: Props) => {
               <IconButton
                 edge="end"
                 aria-label="delete"
-                onClick={e => handleMenu(e, { key, bot })}
+                onClick={e => handleMenu(e, { key, ...bot })}
               >
                 <MoreVertIcon />
               </IconButton>
@@ -82,24 +82,37 @@ export const BotList = memo((props: Props) => {
           <ListItemText primary={bot.name} secondary={`"${bot.catchphrase}"`} />
         </ListItem>
       ))}
-      <Menu
-        id="menu-bot-action"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorEl)}
-        onClose={handleCloseMenu}
-      >
-        <MenuItem onClick={handleUpdate}>Edit Bot</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete Bot</MenuItem>
-      </Menu>
+
+      {activeBot && (
+        <Menu
+          id="menu-bot-action"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+        >
+          <MenuItem
+            onClick={handleUpdate}
+            disabled={userProfile.uid !== activeBot.createdBy.uid}
+          >
+            Edit Bot
+          </MenuItem>
+          <MenuItem
+            onClick={handleDelete}
+            disabled={userProfile.uid !== activeBot.createdBy.uid}
+          >
+            Delete Bot
+          </MenuItem>
+        </Menu>
+      )}
     </List>
   );
 });
