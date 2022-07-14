@@ -42,7 +42,7 @@ export const DashboardCta = memo((props: Props) => {
         fullWidth
         onClick={() => handleInsert()}
       >
-        Add Bot
+        GENERATE RANDOM BOT
       </Button>
     );
   };

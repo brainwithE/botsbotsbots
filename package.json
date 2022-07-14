@@ -126,5 +126,8 @@
         "statements": 90
       }
     }
+  },
+  "devDependencies": {
+    "@faker-js/faker": "7.3.0"
   }
 }

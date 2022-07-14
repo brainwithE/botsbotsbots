@@ -1,10 +1,14 @@
 import React from 'react';
+import { faker } from '@faker-js/faker';
+
 import {
   getBots,
   insertBot,
   updateBotData,
   deleteBotData,
 } from 'utils/firebase';
+import { generateBotName } from 'utils/randomizer';
+import { useAuth } from 'app/providers/AuthProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +23,8 @@ export function useDashboard() {
 export function DashboardProvider(props: Props) {
   const [botList, setBotList] = React.useState({});
 
+  const { userProfile } = useAuth();
+
   React.useEffect(() => {
     handleGetBots();
   }, []);
@@ -30,9 +36,15 @@ export function DashboardProvider(props: Props) {
   };
 
   const createBot = async () => {
-    const newBot = await insertBot();
+    const generatedBot = {
+      name: generateBotName(faker.name.firstName()),
+      catchphrase: faker.company.catchPhrase(),
+      timestamp: Date.now(),
+      createdBy: { uid: userProfile.uid, email: userProfile.email },
+    };
+    const newBot = await insertBot(generatedBot);
 
-    setBotList({ ...newBot, ...botList });
+    setBotList({ ...botList, ...newBot });
   };
 
   const updateBot = async id => {
@@ -43,6 +55,9 @@ export function DashboardProvider(props: Props) {
 
   const deleteBot = async id => {
     await deleteBotData(id);
+    delete botList[id];
+
+    setBotList(botList);
   };
 
   return (

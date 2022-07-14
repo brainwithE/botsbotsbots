@@ -10,6 +10,8 @@ import {
   update,
   remove,
 } from 'firebase/database';
+import { faker } from '@faker-js/faker';
+import { generateBotName } from './randomizer';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -75,14 +77,7 @@ export const logout = () => {
   auth.signOut();
 };
 
-export const insertBot = async (): Promise<any> => {
-  // entry
-  const botData = {
-    name: 'Bot4',
-    description: 'Dolor sit amet',
-    timestamp: Date.now(),
-  };
-
+export const insertBot = async (botData: object): Promise<any> => {
   const botKey: any = push(child(ref(db), 'bots')).key;
 
   set(ref(db, '/bots/' + botKey), botData);
@@ -102,8 +97,8 @@ export const updateBotData = async (botKey): Promise<any> => {
   console.log('botID', botKey);
   // entry
   const botData = {
-    name: 'Bot4-updated',
-    description: 'Lorem ipsum Dolor sit amet',
+    name: generateBotName(faker.name.firstName()),
+    catchphrase: faker.company.catchPhrase(),
   };
 
   const updates = {};
@@ -113,7 +108,5 @@ export const updateBotData = async (botKey): Promise<any> => {
 };
 
 export const deleteBotData = async (botKey): Promise<any> => {
-  console.log('delete', botKey);
-
   remove(ref(db, `/bots/${botKey}`));
 };

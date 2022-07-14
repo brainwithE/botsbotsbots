@@ -40,12 +40,16 @@ export const BotList = memo((props: Props) => {
 
   const handleUpdate = async e => {
     e.stopPropagation();
+
     await updateBot(activeBot.key);
+    setAnchorEl(null);
   };
 
   const handleDelete = async e => {
     e.stopPropagation();
+
     await deleteBot(activeBot.key);
+    setAnchorEl(null);
   };
 
   if (Object.keys(botList).length === 0)
@@ -75,10 +79,7 @@ export const BotList = memo((props: Props) => {
               alt="bot"
             />
           </ListItemAvatar>
-          <ListItemText
-            primary={key}
-            secondary={`${bot.name}— ${bot.description}`}
-          />
+          <ListItemText primary={bot.name} secondary={`"${bot.catchphrase}"`} />
         </ListItem>
       ))}
       <Menu
