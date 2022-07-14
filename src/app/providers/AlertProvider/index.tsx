@@ -24,8 +24,8 @@ export function useAlert() {
   return React.useContext(AlertContext);
 }
 
-export function AlertProvider(props: Props) {
-  const [open, setOpen] = React.useState(false);
+export function AlertProvider(props: Props): JSX.Element {
+  const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
   const [severity, setSeverity] = React.useState();
   const [duration, setDuration] = React.useState(5000);
@@ -34,20 +34,18 @@ export function AlertProvider(props: Props) {
     event?: React.SyntheticEvent | Event,
     reason?: string,
   ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+    if (reason === 'clickaway') return;
 
     setMessage('');
     setDuration(5000);
-    setOpen(false);
+    setIsSnackbarOpen(false);
   };
 
   const alert = (message, variant, duration = 6000) => {
     setMessage(message);
     setSeverity(variant);
     setDuration(duration);
-    setOpen(true);
+    setIsSnackbarOpen(true);
   };
 
   return (
@@ -56,7 +54,7 @@ export function AlertProvider(props: Props) {
 
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={open}
+        open={isSnackbarOpen}
         autoHideDuration={duration}
         onClose={handleClose}
       >

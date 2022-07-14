@@ -59,7 +59,6 @@ export const BotList = memo((props: Props) => {
 
   const handleDelete = async () => {
     setAnchorEl(null);
-
     await deleteBot(selectedBot.key);
     setSelectedBot(null);
   };
@@ -74,9 +73,11 @@ export const BotList = memo((props: Props) => {
         sx={{ minHeight: '30vh' }}
       >
         <SentimentVeryDissatisfiedIcon sx={{ fontSize: '5em' }} color="error" />
+
         <Typography variant="h5" align="center">
           Bot not found
         </Typography>
+
         {!isUserAuthenticated && (
           <Typography variant="body1" align="center">
             Login to generate random bot.
@@ -97,7 +98,7 @@ export const BotList = memo((props: Props) => {
                 <IconButton
                   edge="end"
                   aria-label="delete"
-                  onClick={e => handleMenu(e, { key, ...bot })}
+                  onClick={event => handleMenu(event, { key, ...bot })}
                 >
                   <MoreVertIcon />
                 </IconButton>
@@ -110,6 +111,7 @@ export const BotList = memo((props: Props) => {
                 alt="bot"
               />
             </ListItemAvatar>
+
             <ListItemText
               primary={bot.name}
               secondary={`"${bot.catchphrase}"`}

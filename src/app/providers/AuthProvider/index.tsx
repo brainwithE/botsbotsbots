@@ -13,13 +13,13 @@ interface Props {
   children: React.ReactNode;
 }
 
-const AuthContext = React.createContext<any>({ isAuthenticated: false });
+const AuthContext = React.createContext<any>({});
 
 export function useAuth() {
   return React.useContext(AuthContext);
 }
 
-export function AuthProvider(props: Props) {
+export function AuthProvider(props: Props): JSX.Element {
   const history = useHistory();
   const [isUserAuthenticated, setIsUserAuthenticated] = React.useState(false);
   const [isAuthenticating, setIsAuthenticating] = React.useState(false);

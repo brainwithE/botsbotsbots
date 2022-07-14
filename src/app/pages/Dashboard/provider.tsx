@@ -21,7 +21,7 @@ export function useDashboard() {
   return React.useContext(DashboardContext);
 }
 
-export function DashboardProvider(props: Props) {
+export function DashboardProvider(props: Props): JSX.Element {
   const [botList, setBotList] = React.useState({});
   const [selectedBot, setSelectedBot] = React.useState<any>();
   const [isBotFormOpen, setIsBotFormOpen] = React.useState(false);
@@ -100,15 +100,15 @@ export function DashboardProvider(props: Props) {
       value={{
         botList,
         selectedBot,
+        isBotFormOpen,
+        isProcessing,
+        isBotDetailsOpen,
         setSelectedBot,
         createBot,
         updateBot,
         deleteBot,
-        isBotFormOpen,
         setIsBotFormOpen,
-        isProcessing,
         setIsProcessing,
-        isBotDetailsOpen,
         setIsBotDetailsOpen,
       }}
     >

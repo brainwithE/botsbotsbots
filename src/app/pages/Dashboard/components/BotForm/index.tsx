@@ -39,7 +39,7 @@ export const BotForm = memo((props: Props) => {
     selectedBot,
     isProcessing,
     updateBot,
-    setSelectedBot
+    setSelectedBot,
   } = useDashboard();
 
   const [formValues, setFormValues] = useState({

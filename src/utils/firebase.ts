@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  UserCredential,
+  User,
+} from 'firebase/auth';
 import {
   getDatabase,
   ref,
@@ -31,7 +36,7 @@ const db = getDatabase();
  * Get user if authenticated
  * @returns {Promise<FirebaseUser>}
  */
-export const getUser = () =>
+export const getUser = (): Promise<User | null> =>
   new Promise(resolve => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       unsubscribe();
@@ -44,7 +49,7 @@ export const getUser = () =>
  * @param {*} user
  * @returns
  */
-export const getIdToken = user =>
+export const getIdToken = (user): Promise<any> =>
   user
     .getIdToken()
     .then(token => token)
@@ -58,12 +63,12 @@ export const getIdToken = user =>
  * @param {string} password
  * @returns {Promise<FirebaseUser>}
  */
-export const signIn = (email: string, password: string) => {
+export const signIn = (
+  email: string,
+  password: string,
+): Promise<UserCredential> => {
   return signInWithEmailAndPassword(auth, email, password)
-    .then(user => {
-      console.log('singin', user);
-      return user;
-    })
+    .then(user => user)
     .catch(error => {
       throw error;
     });
@@ -72,10 +77,19 @@ export const signIn = (email: string, password: string) => {
 /**
  * Logout user
  */
-export const logout = () => {
-  auth.signOut();
+export const logout = (): Promise<void> => {
+  return auth.signOut();
 };
 
+/**
+ * ============= REALTIME DATABASE ==============
+ */
+
+/**
+ * Add a bot in bots node
+ * @param botData
+ * @returns
+ */
 export const insertBotData = async (botData: object): Promise<any> => {
   const botKey: any = push(child(ref(db), 'bots')).key;
 
@@ -88,12 +102,22 @@ export const insertBotData = async (botData: object): Promise<any> => {
   };
 };
 
+/**
+ * Get all bots
+ *
+ */
 export const getAllBotsData = async (): Promise<any> => {
   const snapshot = await get(ref(db, '/bots'));
 
   return snapshot.val();
 };
 
+/**
+ * Update bot details in bots node
+ * @param botKey string
+ * @param botData object
+ * @returns
+ */
 export const updateBotData = async (botKey, botData): Promise<any> => {
   const botsRef = ref(db, `/bots/${botKey}`);
   await update(botsRef, botData);
@@ -107,7 +131,11 @@ export const updateBotData = async (botKey, botData): Promise<any> => {
   };
 };
 
-export const removeBotData = async (botKey): Promise<any> => {
+/**
+ * Remove bot from bots node
+ * @param botKey string
+ */
+export const removeBotData = async (botKey: string): Promise<void> => {
   const botsRef = ref(db, `/bots/${botKey}`);
 
   await remove(botsRef);
