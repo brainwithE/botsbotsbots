@@ -34,21 +34,29 @@ export function DashboardProvider(props: Props) {
   }, []);
 
   const handleGetBots = async () => {
+    setIsProcessing(true);
+
     const botList = await getBots();
 
     setBotList(botList || {});
+    setIsProcessing(false);
   };
 
   const createBot = async () => {
+    setIsProcessing(true);
+
     const generatedBot = {
       name: generateBotName(faker.name.firstName()),
       catchphrase: faker.company.catchPhrase(),
       timestamp: Date.now(),
       createdBy: { uid: userProfile.uid, email: userProfile.email },
     };
+
     const newBot = await insertBot(generatedBot);
 
-    setBotList({ ...botList, ...newBot });
+    await setBotList({ ...botList, ...newBot });
+
+    setIsProcessing(false);
   };
 
   const updateBot = async (id, updatedValues) => {
@@ -66,10 +74,13 @@ export function DashboardProvider(props: Props) {
   };
 
   const deleteBot = async id => {
+    setIsProcessing(true);
+
     await deleteBotData(id);
     delete botList[id];
 
     setBotList(botList);
+    setIsProcessing(false);
   };
 
   return (

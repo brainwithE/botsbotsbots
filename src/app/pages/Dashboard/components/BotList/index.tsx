@@ -12,8 +12,10 @@ import {
   Avatar,
   IconButton,
   Typography,
+  Grid,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 import { useDashboard } from '../../provider';
 import { useAuth } from 'app/providers/AuthProvider';
@@ -46,22 +48,41 @@ export const BotList = memo((props: Props) => {
   };
 
   const handleView = async () => {
-    setIsBotDetailsOpen(true);
     setAnchorEl(null);
+    setIsBotDetailsOpen(true);
   };
 
   const handleUpdate = async () => {
-    setIsBotFormOpen(true);
     setAnchorEl(null);
+    setIsBotFormOpen(true);
   };
 
   const handleDelete = async () => {
-    await deleteBot(selectedBot.key);
     setAnchorEl(null);
+
+    await deleteBot(selectedBot.key);
   };
 
   if (Object.keys(botList).length === 0)
-    return <Typography variant="body1">No bot found</Typography>;
+    return (
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        direction="column"
+        sx={{ minHeight: '30vh' }}
+      >
+        <SentimentVeryDissatisfiedIcon sx={{ fontSize: '5em' }} color="error" />
+        <Typography variant="h5" align="center">
+          Bot not found
+        </Typography>
+        {!isUserAuthenticated && (
+          <Typography variant="body1" align="center">
+            Login to generate random bot.
+          </Typography>
+        )}
+      </Grid>
+    );
 
   return (
     <>

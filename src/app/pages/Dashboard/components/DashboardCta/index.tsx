@@ -9,11 +9,12 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from 'app/providers/AuthProvider';
 import React, { memo } from 'react';
 import { useDashboard } from '../../provider';
+import { LoadingButton } from '@mui/lab';
 
 interface Props {}
 
 export const DashboardCta = memo((props: Props) => {
-  const { createBot } = useDashboard();
+  const { createBot, isProcessing } = useDashboard();
   const { isUserAuthenticated } = useAuth();
   const history = useHistory();
 
@@ -36,14 +37,15 @@ export const DashboardCta = memo((props: Props) => {
     }
 
     return (
-      <Button
+      <LoadingButton
+        loading={isProcessing}
         variant="contained"
         size="large"
         fullWidth
         onClick={() => handleInsert()}
       >
         GENERATE RANDOM BOT
-      </Button>
+      </LoadingButton>
     );
   };
 
