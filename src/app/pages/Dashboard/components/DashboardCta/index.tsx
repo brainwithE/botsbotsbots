@@ -55,7 +55,7 @@ export const DashboardCta = memo((props: Props) => {
       color="neutral"
       sx={{
         p: 4,
-        position: 'fixed',
+        position: 'sticky',
         bottom: 0,
         width: '100%',
         background: '#f3f3f3',

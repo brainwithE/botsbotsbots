@@ -38,7 +38,7 @@ export const GlobalLoader = memo((props: Props) => {
   }, []);
 
   return (
-    <Container sx={{ height: '100vh', pt: '50vh' }}>
+    <Container maxWidth="sm" sx={{ height: '100vh', pt: '50vh' }}>
       <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
     </Container>
   );

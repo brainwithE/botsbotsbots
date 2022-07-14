@@ -123,7 +123,6 @@ export const BotForm = memo((props: Props) => {
           <Sheet variant="solid" color="neutral" sx={{ p: 2 }}>
             <LoadingButton
               loading={isProcessing}
-              loadingPosition="start"
               fullWidth
               type="submit"
               variant="contained"
