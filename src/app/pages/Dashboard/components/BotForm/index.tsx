@@ -39,6 +39,7 @@ export const BotForm = memo((props: Props) => {
     selectedBot,
     isProcessing,
     updateBot,
+    setSelectedBot
   } = useDashboard();
 
   const [formValues, setFormValues] = useState({
@@ -54,6 +55,7 @@ export const BotForm = memo((props: Props) => {
 
   const handleCloseForm = () => {
     setIsBotFormOpen(false);
+    setSelectedBot(null);
   };
 
   const handleFormSubmit = async () => {

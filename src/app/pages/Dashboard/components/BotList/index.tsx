@@ -61,6 +61,7 @@ export const BotList = memo((props: Props) => {
     setAnchorEl(null);
 
     await deleteBot(selectedBot.key);
+    setSelectedBot(null);
   };
 
   if (Object.keys(botList).length === 0)
