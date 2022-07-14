@@ -20,6 +20,7 @@ export const DashboardCta = memo((props: Props) => {
 
   const handleInsert = async () => {
     await createBot();
+    window.scrollTo(0, 0);
   };
 
   const buttonAction = () => {
