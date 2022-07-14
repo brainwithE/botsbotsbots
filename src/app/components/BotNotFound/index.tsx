@@ -1,6 +1,6 @@
 /**
  *
- * NotFound
+ * NotFound for Bots
  *
  */
 import React, { memo } from 'react';

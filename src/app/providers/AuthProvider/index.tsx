@@ -1,7 +1,7 @@
 /**
  *
  * AuthProvider
- *
+ * Provide authentication data
  */
 import { GlobalLoader } from 'app/components/GlobalLoader';
 import * as React from 'react';

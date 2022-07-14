@@ -1,6 +1,7 @@
 /**
  *
  * MyBots
+ * List all bots of current user logged in
  *
  */
 import React, { memo } from 'react';

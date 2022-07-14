@@ -1,6 +1,7 @@
 /**
  *
  * Dashboard
+ * Landing Page to list all user's bots
  *
  */
 import * as React from 'react';

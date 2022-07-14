@@ -1,3 +1,8 @@
+/**
+ *
+ * Default Page Not Found
+ *
+ */
 import * as React from 'react';
 import styled from 'styled-components/macro';
 import { P } from './P';

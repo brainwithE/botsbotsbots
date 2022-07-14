@@ -1,6 +1,6 @@
 /**
  *
- * GlobalLoader
+ * Global Loader
  *
  */
 import React, { memo } from 'react';
