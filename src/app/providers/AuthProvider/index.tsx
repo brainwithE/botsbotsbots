@@ -3,6 +3,7 @@
  * AuthProvider
  *
  */
+import { GlobalLoader } from 'app/components/GlobalLoader';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
 import { profileBuilder } from 'utils/builders';
@@ -75,7 +76,7 @@ export function AuthProvider(props: Props) {
   }, [history, isUserAuthenticated]);
 
   if (isAuthenticating) {
-    return <h1>Loading...</h1>;
+    return <GlobalLoader />;
   }
 
   return (
