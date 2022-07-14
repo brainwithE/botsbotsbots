@@ -1,3 +1,4 @@
+import { useAlert } from 'app/providers/AlertProvider';
 import React, { useState } from 'react';
 import { useAuth } from '../../providers/AuthProvider';
 interface Props {
@@ -13,15 +14,15 @@ export function useLogin() {
 export function LoginProvider(props: Props) {
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
+  const { alert } = useAlert();
 
   const loginUser = async data => {
     try {
       setLoading(true);
-      const user = await login(data);
-      console.log(user);
-      setLoading(false);
-    } catch (error) {
-      console.error('Invalid credentials', error);
+
+      await login(data);
+    } catch (error: any) {
+      alert(error.message, 'error');
     } finally {
       setLoading(false);
     }

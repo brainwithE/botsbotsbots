@@ -31,7 +31,7 @@ export const DashboardCta = memo((props: Props) => {
           fullWidth
           onClick={() => history.push('/login')}
         >
-          Login
+          LOGIN TO GENERATE A BOT
         </Button>
       );
     }

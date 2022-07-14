@@ -9,11 +9,8 @@ import {
   get,
   update,
   remove,
-  onChildAdded,
   onChildChanged,
 } from 'firebase/database';
-import { faker } from '@faker-js/faker';
-import { generateBotName } from './randomizer';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -84,10 +81,6 @@ export const insertBot = async (botData: object): Promise<any> => {
 
   const botsRef = ref(db, `/bots/${botKey}`);
 
-  // onChildAdded(botsRef, data => {
-  //   console.log('onChildAdded', data.key, data.val());
-  // });
-
   set(botsRef, botData);
 
   return {
@@ -115,5 +108,7 @@ export const updateBotData = async (botKey, botData): Promise<any> => {
 };
 
 export const deleteBotData = async (botKey): Promise<any> => {
-  remove(ref(db, `/bots/${botKey}`));
+  const botsRef = ref(db, `/bots/${botKey}`);
+
+  await remove(botsRef);
 };

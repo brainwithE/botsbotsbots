@@ -4,6 +4,7 @@ import { Grid, Divider, Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { useLogin } from '../../provider';
 import { useHistory } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
 
 export function LoginForm() {
   const history = useHistory();
@@ -52,16 +53,16 @@ export function LoginForm() {
 
           <Divider variant="middle" sx={{ margin: '2em' }} />
 
-          <Button
+          <LoadingButton
+            loading={loading}
             fullWidth
             type="submit"
             variant="contained"
             size="large"
-            disabled={loading}
             sx={{ marginBottom: '1em' }}
           >
             LOGIN
-          </Button>
+          </LoadingButton>
 
           <Button
             fullWidth

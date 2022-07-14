@@ -9,6 +9,7 @@ import {
 } from 'utils/firebase';
 import { generateBotName } from 'utils/randomizer';
 import { useAuth } from 'app/providers/AuthProvider';
+import { useAlert } from 'app/providers/AlertProvider';
 
 interface Props {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ export function DashboardProvider(props: Props) {
   const [isProcessing, setIsProcessing] = React.useState(false);
 
   const { userProfile } = useAuth();
+  const { alert } = useAlert();
 
   React.useEffect(() => {
     handleGetBots();
@@ -54,6 +56,8 @@ export function DashboardProvider(props: Props) {
 
     const newBot = await insertBot(generatedBot);
 
+    await alert('Bot created successfully', 'success', 3000);
+
     await setBotList({ ...botList, ...newBot });
 
     setIsProcessing(false);
@@ -70,17 +74,25 @@ export function DashboardProvider(props: Props) {
 
     Object.assign(oldBot, value);
 
+    await alert('Bot updated successfully', 'success', 3000);
+
     setIsProcessing(false);
   };
 
   const deleteBot = async id => {
-    setIsProcessing(true);
+    try {
+      setIsProcessing(true);
 
-    await deleteBotData(id);
-    delete botList[id];
+      await deleteBotData(id);
+      await delete botList[id];
 
-    setBotList(botList);
-    setIsProcessing(false);
+      setBotList(botList);
+      await alert('Bot deleted successfully', 'success');
+    } catch (error) {
+      alert('Failed! Please try again later.', 'error');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
