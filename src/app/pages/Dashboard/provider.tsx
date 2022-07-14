@@ -23,6 +23,8 @@ export function useDashboard() {
 export function DashboardProvider(props: Props) {
   const [botList, setBotList] = React.useState({});
   const [selectedBot, setSelectedBot] = React.useState<any>();
+  const [isBotFormOpen, setIsBotFormOpen] = React.useState(false);
+  const [isProcessing, setIsProcessing] = React.useState(false);
 
   const { userProfile } = useAuth();
 
@@ -48,14 +50,18 @@ export function DashboardProvider(props: Props) {
     setBotList({ ...botList, ...newBot });
   };
 
-  const updateBot = async id => {
-    const updatedBot = await updateBotData(id);
+  const updateBot = async (id, updatedValues) => {
+    setIsProcessing(true);
+
+    const updatedBot = await updateBotData(id, updatedValues);
     const key = Object.entries(updatedBot)[0][0];
     const value = Object.entries(updatedBot)[0][1];
 
     const oldBot = botList[key];
 
     Object.assign(oldBot, value);
+
+    setIsProcessing(false);
   };
 
   const deleteBot = async id => {
@@ -75,6 +81,10 @@ export function DashboardProvider(props: Props) {
         createBot,
         updateBot,
         deleteBot,
+        isBotFormOpen,
+        setIsBotFormOpen,
+        isProcessing,
+        setIsProcessing,
       }}
     >
       {props.children}

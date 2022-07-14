@@ -101,13 +101,7 @@ export const getBots = async (): Promise<any> => {
   return snapshot.val();
 };
 
-export const updateBotData = async (botKey): Promise<any> => {
-  // entry
-  const botData = {
-    name: generateBotName(faker.name.firstName()),
-    catchphrase: faker.company.catchPhrase(),
-  };
-
+export const updateBotData = async (botKey, botData): Promise<any> => {
   const botsRef = ref(db, `/bots/${botKey}`);
   await update(botsRef, botData);
 

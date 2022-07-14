@@ -24,8 +24,14 @@ interface Props {}
 export const BotList = memo((props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const { botList, selectedBot, updateBot, deleteBot, setSelectedBot } =
-    useDashboard();
+  const {
+    botList,
+    selectedBot,
+    updateBot,
+    deleteBot,
+    setSelectedBot,
+    setIsBotFormOpen,
+  } = useDashboard();
   const { isUserAuthenticated } = useAuth();
 
   const handleMenu = (event, bot) => {
@@ -39,7 +45,7 @@ export const BotList = memo((props: Props) => {
   };
 
   const handleUpdate = async () => {
-    await updateBot(selectedBot.key);
+    setIsBotFormOpen(true);
     setAnchorEl(null);
   };
 
