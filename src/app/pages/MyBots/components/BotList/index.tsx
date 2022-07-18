@@ -4,13 +4,16 @@
  *
  */
 import React, { memo } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { List, Button } from '@mui/material';
 
-import { useMyBots } from '../../provider';
-import { BotListItem } from 'app/components/BotListItem';
 import { BotItemActionMenu } from 'app/components/BotItemActionMenu';
+import { BotListItem } from 'app/components/BotListItem';
 import { NotFound } from 'app/components/BotNotFound';
-import { useHistory } from 'react-router-dom';
+import { ROOT_PATH } from 'app/constants/route';
+
+import { useMyBots } from '../../provider';
 
 interface Props {}
 
@@ -58,7 +61,7 @@ export const BotList = memo((props: Props) => {
     return (
       <NotFound label="You don't own a bot">
         <Button
-          onClick={() => history.push('/')}
+          onClick={() => history.push(ROOT_PATH)}
           variant="outlined"
           size="large"
         >

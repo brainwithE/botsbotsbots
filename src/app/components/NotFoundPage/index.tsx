@@ -4,9 +4,11 @@
  *
  */
 import * as React from 'react';
-import styled from 'styled-components/macro';
-import { P } from './P';
 import { Helmet } from 'react-helmet-async';
+
+import styled from 'styled-components/macro';
+
+import { P } from './P';
 
 export function NotFoundPage() {
   return (

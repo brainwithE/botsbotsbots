@@ -1,8 +1,10 @@
 /**
  * Login Provider
  */
-import { useAlert } from 'app/providers/AlertProvider';
 import React, { useState } from 'react';
+
+import { useAlert } from 'app/providers/AlertProvider';
+
 import { useAuth } from '../../providers/AuthProvider';
 interface Props {
   children: React.ReactNode;

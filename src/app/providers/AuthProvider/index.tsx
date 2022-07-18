@@ -3,10 +3,13 @@
  * AuthProvider
  * Provide authentication data
  */
-import { GlobalLoader } from 'app/components/GlobalLoader';
 import * as React from 'react';
 import { useHistory } from 'react-router-dom';
+
+import { GlobalLoader } from 'app/components/GlobalLoader';
+import { ROOT_PATH } from 'app/constants/route';
 import { profileBuilder } from 'utils/builders';
+
 import { signIn, logout, getUser } from '../../../utils/firebase';
 
 interface Props {
@@ -71,7 +74,7 @@ export function AuthProvider(props: Props): JSX.Element {
 
   React.useEffect(() => {
     if (isUserAuthenticated) {
-      history.push('/');
+      history.push(ROOT_PATH);
     }
   }, [history, isUserAuthenticated]);
 

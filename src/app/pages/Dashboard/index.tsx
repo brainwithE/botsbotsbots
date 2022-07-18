@@ -5,14 +5,15 @@
  *
  */
 import * as React from 'react';
+import { Helmet } from 'react-helmet-async';
+
 import { AppBarHeader } from 'app/components/AppBarHeader';
 
-import { BotList } from './components/BotList';
-import { DashboardProvider } from './provider';
-import { DashboardCta } from './components/DashboardCta';
-import { BotForm } from './components/BotForm';
 import { BotDetails } from './components/BotDetails';
-import { Helmet } from 'react-helmet-async';
+import { BotForm } from './components/BotForm';
+import { BotList } from './components/BotList';
+import { DashboardCta } from './components/DashboardCta';
+import { DashboardProvider } from './provider';
 
 interface Props {}
 

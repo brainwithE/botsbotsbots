@@ -4,7 +4,9 @@
  *
  */
 import React, { memo, useEffect, useState } from 'react';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+import { Sheet } from '@mui/joy';
 import {
   Container,
   Dialog,
@@ -14,11 +16,11 @@ import {
   Typography,
   Slide,
 } from '@mui/material';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { Sheet } from '@mui/joy';
-import { TransitionProps } from '@mui/material/transitions';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { TransitionProps } from '@mui/material/transitions';
+
 import { useMyBots } from '../../provider';
 
 interface Props {}

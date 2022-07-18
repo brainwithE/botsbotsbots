@@ -3,13 +3,17 @@
  * DashboardCta
  *
  */
-import { Button } from '@mui/material';
-import Sheet from '@mui/joy/Sheet';
-import { useHistory } from 'react-router-dom';
-import { useAuth } from 'app/providers/AuthProvider';
 import React, { memo } from 'react';
-import { useDashboard } from '../../provider';
+import { useHistory } from 'react-router-dom';
+
+import Sheet from '@mui/joy/Sheet';
 import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+
+import { LOGIN_PATH } from 'app/constants/route';
+import { useAuth } from 'app/providers/AuthProvider';
+
+import { useDashboard } from '../../provider';
 
 interface Props {}
 
@@ -30,7 +34,7 @@ export const DashboardCta = memo((props: Props) => {
           variant="contained"
           size="large"
           fullWidth
-          onClick={() => history.push('/login')}
+          onClick={() => history.push(LOGIN_PATH)}
         >
           LOGIN TO GENERATE A BOT
         </Button>

@@ -4,12 +4,14 @@
  *
  */
 import React, { memo } from 'react';
+
 import { List } from '@mui/material';
 
-import { useDashboard } from '../../provider';
 import { BotItemActionMenu } from 'app/components/BotItemActionMenu';
 import { BotListItem } from 'app/components/BotListItem';
 import { NotFound } from 'app/components/BotNotFound';
+
+import { useDashboard } from '../../provider';
 
 interface Props {}
 

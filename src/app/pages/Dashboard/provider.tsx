@@ -2,8 +2,11 @@
  * Dashboard Provider
  */
 import React from 'react';
+
 import { faker } from '@faker-js/faker';
 
+import { useAlert } from 'app/providers/AlertProvider';
+import { useAuth } from 'app/providers/AuthProvider';
 import {
   getAllBotsData,
   insertBotData,
@@ -11,8 +14,6 @@ import {
   removeBotData,
 } from 'utils/firebase';
 import { generateBotName } from 'utils/randomizer';
-import { useAuth } from 'app/providers/AuthProvider';
-import { useAlert } from 'app/providers/AlertProvider';
 
 interface Props {
   children: React.ReactNode;

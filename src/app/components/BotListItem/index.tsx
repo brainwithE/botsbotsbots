@@ -3,6 +3,9 @@
  * BotListItem
  *
  */
+import React, { memo } from 'react';
+
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {
   ListItem,
   ListItemAvatar,
@@ -11,9 +14,8 @@ import {
   ListItemText,
   IconButton,
 } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+
 import { useAuth } from 'app/providers/AuthProvider';
-import React, { memo } from 'react';
 
 interface Props {
   botKey: string;

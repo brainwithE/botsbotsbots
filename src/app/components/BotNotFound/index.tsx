@@ -4,6 +4,7 @@
  *
  */
 import React, { memo } from 'react';
+
 import { Typography, Grid, Avatar } from '@mui/material';
 
 interface Props {

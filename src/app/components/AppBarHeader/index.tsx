@@ -4,6 +4,9 @@
  *
  */
 import React, { memo } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   AppBar,
   Toolbar,
@@ -14,10 +17,11 @@ import {
   Avatar,
   ButtonBase,
 } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import { MY_BOTS_PATH, ROOT_PATH } from 'app/constants/route';
+
 import { useAuth } from '../../providers/AuthProvider';
 import { LogoutConfirmationDialog } from './logoutConfirmationDialog';
-import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
@@ -31,7 +35,7 @@ export const AppBarHeader = memo((props: Props) => {
   const handleLogout = () => {
     logoutUser();
     setIsLogoutConfirmOpen(false);
-    history.push('/');
+    history.push(ROOT_PATH);
   };
 
   const handleClose = () => {
@@ -50,7 +54,7 @@ export const AppBarHeader = memo((props: Props) => {
   return (
     <AppBar position="static" color="default">
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <ButtonBase onClick={() => history.push('/')}>
+        <ButtonBase onClick={() => history.push(ROOT_PATH)}>
           <Avatar
             src={'https://avatars.dicebear.com/api/bottts/botsbotsbots.svg'}
             alt="bot"
@@ -88,8 +92,10 @@ export const AppBarHeader = memo((props: Props) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => history.push('/')}>Dashboard</MenuItem>
-              <MenuItem onClick={() => history.push('/my-bots')}>
+              <MenuItem onClick={() => history.push(ROOT_PATH)}>
+                Dashboard
+              </MenuItem>
+              <MenuItem onClick={() => history.push(MY_BOTS_PATH)}>
                 My Bots
               </MenuItem>
               <MenuItem onClick={handleOpenDialog}>

@@ -8,18 +8,20 @@
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
+
+import { Container } from '@mui/material';
 
 import { GlobalStyle } from 'styles/global-styles';
 
-import { Login } from './pages/Login/Loadable';
-import { Dashboard } from './pages/Dashboard/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
-import { useTranslation } from 'react-i18next';
-import { AuthProvider } from './providers/AuthProvider';
-import { Container } from '@mui/material';
-import { AlertProvider } from './providers/AlertProvider';
+import { LOGIN_PATH, MY_BOTS_PATH, ROOT_PATH } from './constants/route';
+import { Dashboard } from './pages/Dashboard/Loadable';
+import { Login } from './pages/Login/Loadable';
 import { MyBots } from './pages/MyBots';
+import { AlertProvider } from './providers/AlertProvider';
+import { AuthProvider } from './providers/AuthProvider';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -37,9 +39,9 @@ export function App() {
         <AuthProvider>
           <Container disableGutters maxWidth="sm">
             <Switch>
-              <Route exact path="/" component={Dashboard} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/my-bots" component={MyBots} />
+              <Route exact path={ROOT_PATH} component={Dashboard} />
+              <Route exact path={LOGIN_PATH} component={Login} />
+              <Route exact path={MY_BOTS_PATH} component={MyBots} />
               <Route component={NotFoundPage} />
             </Switch>
           </Container>

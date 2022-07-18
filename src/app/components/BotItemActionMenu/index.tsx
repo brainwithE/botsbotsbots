@@ -4,7 +4,9 @@
  *
  */
 import React, { memo } from 'react';
+
 import { Menu, MenuItem } from '@mui/material';
+
 import { useAuth } from 'app/providers/AuthProvider';
 
 interface Props {

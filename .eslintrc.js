@@ -10,6 +10,51 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'prettier/prettier': ['error', prettierOptions],
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        pathGroups: [
+          {
+            pattern: 'react*',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '~/**',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: '@',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: 'app/**',
+            group: 'internal',
+          },
+          {
+            pattern: 'utils/**',
+            group: 'internal',
+          },
+          {
+            pattern: 'styles/**',
+            group: 'internal',
+          },
+          {
+            pattern: 'types/**',
+            group: 'internal',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
   },
   overrides: [
     {

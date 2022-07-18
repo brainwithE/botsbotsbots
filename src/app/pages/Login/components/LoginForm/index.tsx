@@ -4,12 +4,15 @@
  *
  */
 import * as React from 'react';
-
-import { Grid, Divider, Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { useLogin } from '../../provider';
 import { useHistory } from 'react-router-dom';
+
 import { LoadingButton } from '@mui/lab';
+import { Grid, Divider, Button } from '@mui/material';
+
+import { ROOT_PATH } from 'app/constants/route';
+
+import { useLogin } from '../../provider';
 
 export function LoginForm() {
   const history = useHistory();
@@ -71,7 +74,7 @@ export function LoginForm() {
 
           <Button
             fullWidth
-            onClick={() => history.push('/')}
+            onClick={() => history.push(ROOT_PATH)}
             variant="outlined"
             size="large"
           >
