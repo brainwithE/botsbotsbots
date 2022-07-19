@@ -6,7 +6,9 @@
 import React, { memo, useEffect, useState } from 'react';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Sheet } from '@mui/joy';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
   Container,
   Dialog,
@@ -16,9 +18,6 @@ import {
   Typography,
   Slide,
 } from '@mui/material';
-
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { TransitionProps } from '@mui/material/transitions';
 
 import { useMyBots } from '../../provider';
