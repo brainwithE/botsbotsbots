@@ -8,6 +8,7 @@ import React, { memo } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { AppBarHeader } from 'app/components/AppBarHeader';
+import { PageTitle } from 'app/components/PageTitle';
 
 import { BotDetails } from './components/BotDetails';
 import { BotForm } from './components/BotForm';
@@ -26,6 +27,7 @@ export const MyBots = memo((props: Props) => {
 
       <MyBotsProvider>
         <AppBarHeader />
+        <PageTitle title="My Bots" />
         <BotList />
         <BotDetails />
         <BotForm />
